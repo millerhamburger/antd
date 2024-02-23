@@ -1,3 +1,11 @@
+/*
+ * @Author: 叶毅 yeyi@brandnewdata.com
+ * @Date: 2024-02-23 13:42:48
+ * @LastEditors: 叶毅 yeyi@brandnewdata.com
+ * @LastEditTime: 2024-02-23 15:04:57
+ * @FilePath: /antd/packages/components/src/time-picker/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { connect, mapProps, mapReadPretty } from '@formily/react'
 import {
   TimePicker as AntdTimePicker,
@@ -15,9 +23,15 @@ type ComposedTimePicker = React.FC<
 }
 
 const mapTimeFormat = function () {
-  return (props: any) => {
+  return (props: any, field: any) => {
     const format = props['format'] || 'HH:mm:ss'
     const onChange = props.onChange
+
+    const customProperty: any = {}
+
+    if (props.disabled || field.disabled) {
+      customProperty.placeholder = ''
+    }
     return {
       ...props,
       format,
@@ -27,6 +41,7 @@ const mapTimeFormat = function () {
           onChange(formatDayjsValue(value, format))
         }
       },
+      ...customProperty,
     }
   }
 }

@@ -1,3 +1,11 @@
+/*
+ * @Author: 叶毅 yeyi@brandnewdata.com
+ * @Date: 2024-02-23 13:42:48
+ * @LastEditors: 叶毅 yeyi@brandnewdata.com
+ * @LastEditTime: 2024-02-23 15:05:52
+ * @FilePath: /antd/packages/components/src/tree-select/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { LoadingOutlined } from '@ant-design/icons'
 import { connect, mapProps, mapReadPretty } from '@formily/react'
 import { TreeSelect as AntdTreeSelect } from 'antd'
@@ -11,6 +19,11 @@ export const TreeSelect = connect(
       dataSource: 'treeData',
     },
     (props, field) => {
+      let placeholder = props.placeholder || '请选择'
+
+      if (field?.disabled || props.disabled) {
+        placeholder = ''
+      }
       return {
         ...props,
         suffixIcon:
@@ -19,6 +32,7 @@ export const TreeSelect = connect(
           ) : (
             props.suffixIcon
           ),
+        placeholder,
       }
     }
   ),
